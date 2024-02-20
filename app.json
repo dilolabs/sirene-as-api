@@ -1,0 +1,10 @@
+{
+  "name": "Sirene as API",
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate",
+    "dokku": {
+      "postdeploy": "bundle exec rails db:migrate"
+    }
+  }
+}
+
