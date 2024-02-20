@@ -33,7 +33,7 @@ Peupler la base de données avec les données de SIRENE :
 
 ⚠️  Cela peut prendre un certain temps.
 
-    bundle exec sirene:import_stock
+    bundle exec rake sirene:import_stock
 
 Lancer le serveur :
 
