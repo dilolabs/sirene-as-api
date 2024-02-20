@@ -1,0 +1,119 @@
+# == Schema Information
+#
+# Table name: unite_legales
+#
+#  id                                        :uuid             not null, primary key
+#  activitePrincipaleUniteLegale             :string
+#  anneeCategorieEntreprise                  :integer
+#  anneeEffectifsUniteLegale                 :integer
+#  caractereEmployeurUniteLegale             :string
+#  categorieEntreprise                       :string
+#  categorieJuridiqueUniteLegale             :integer
+#  changementEtatAdministratifUniteLegale    :string
+#  dateCreationUniteLegale                   :date
+#  dateDebut                                 :date
+#  dateDernierTraitementUniteLegale          :datetime
+#  denominationUniteLegale                   :string
+#  denominationUsuelle1UniteLegale           :string
+#  denominationUsuelle2UniteLegale           :string
+#  denominationUsuelle3UniteLegale           :string
+#  economieSocialeSolidaireUniteLegale       :string
+#  etatAdministratifUniteLegale              :string
+#  identifiantAssociationUniteLegale         :string
+#  nicSiegeUniteLegale                       :string
+#  nomUniteLegale                            :string
+#  nomUsageUniteLegale                       :string
+#  nombrePeriodesUniteLegale                 :integer
+#  nomenclatureActivitePrincipaleUniteLegale :string
+#  prenom1UniteLegale                        :string
+#  prenom2UniteLegale                        :string
+#  prenom3UniteLegale                        :string
+#  prenom4UniteLegale                        :string
+#  prenomUsuelUniteLegale                    :string
+#  pseudonymeUniteLegale                     :string
+#  sexeUniteLegale                           :string
+#  sigleUniteLegale                          :string
+#  siren                                     :string
+#  societeMissionUniteLegale                 :string
+#  statutDiffusionUniteLegale                :string
+#  trancheEffectifsUniteLegale               :string
+#  unitePurgeeUniteLegale                    :string
+#  created_at                                :datetime         not null
+#  updated_at                                :datetime         not null
+#
+# Indexes
+#
+#  index_unite_legales_on_siren  (siren) UNIQUE
+#
+
+one:
+  activitePrincipaleUniteLegale: MyString
+  anneeCategorieEntreprise: 1
+  anneeEffectifsUniteLegale: 1
+  caractereEmployeurUniteLegale: MyString
+  categorieEntreprise: MyString
+  categorieJuridiqueUniteLegale: 1
+  dateCreationUniteLegale: 2023-11-09
+  dateDebut: 2023-11-09
+  dateDernierTraitementUniteLegale: 2023-11-09 10:58:42
+  denominationUniteLegale: MyString
+  denominationUsuelle1UniteLegale: MyString
+  denominationUsuelle2UniteLegale: MyString
+  denominationUsuelle3UniteLegale: MyString
+  economieSocialeSolidaireUniteLegale: MyString
+  etatAdministratifUniteLegale: MyString
+  identifiantAssociationUniteLegale: MyString
+  nicSiegeUniteLegale: MyString
+  nombrePeriodesUniteLegale: 1
+  nomenclatureActivitePrincipaleUniteLegale: MyString
+  nomUniteLegale: MyString
+  nomUsageUniteLegale: MyString
+  prenom1UniteLegale: MyString
+  prenom2UniteLegale: MyString
+  prenom3UniteLegale: MyString
+  prenom4UniteLegale: MyString
+  prenomUsuelUniteLegale: MyString
+  pseudonymeUniteLegale: MyString
+  sexeUniteLegale: MyString
+  sigleUniteLegale: MyString
+  siren: MyString
+  societeMissionUniteLegale: MyString
+  statutDiffusionUniteLegale: MyString
+  trancheEffectifsUniteLegale: MyString
+  unitePurgeeUniteLegale: MyString
+
+two:
+  activitePrincipaleUniteLegale: MyString
+  anneeCategorieEntreprise: 1
+  anneeEffectifsUniteLegale: 1
+  caractereEmployeurUniteLegale: MyString
+  categorieEntreprise: MyString
+  categorieJuridiqueUniteLegale: 1
+  dateCreationUniteLegale: 2023-11-09
+  dateDebut: 2023-11-09
+  dateDernierTraitementUniteLegale: 2023-11-09 10:58:42
+  denominationUniteLegale: MyString
+  denominationUsuelle1UniteLegale: MyString
+  denominationUsuelle2UniteLegale: MyString
+  denominationUsuelle3UniteLegale: MyString
+  economieSocialeSolidaireUniteLegale: MyString
+  etatAdministratifUniteLegale: MyString
+  identifiantAssociationUniteLegale: MyString
+  nicSiegeUniteLegale: MyString
+  nombrePeriodesUniteLegale: 1
+  nomenclatureActivitePrincipaleUniteLegale: MyString
+  nomUniteLegale: MyString
+  nomUsageUniteLegale: MyString
+  prenom1UniteLegale: MyString
+  prenom2UniteLegale: MyString
+  prenom3UniteLegale: MyString
+  prenom4UniteLegale: MyString
+  prenomUsuelUniteLegale: MyString
+  pseudonymeUniteLegale: MyString
+  sexeUniteLegale: MyString
+  sigleUniteLegale: MyString
+  siren: MyString
+  societeMissionUniteLegale: MyString
+  statutDiffusionUniteLegale: MyString
+  trancheEffectifsUniteLegale: MyString
+  unitePurgeeUniteLegale: MyString
