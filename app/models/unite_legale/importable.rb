@@ -38,7 +38,7 @@ module UniteLegale::Importable
     def self.unzip_stock(source: UniteLegale::Importable::ZIP_DESTINATION, destination: UniteLegale::Importable::CSV_DESTINATION)
       Rails.logger.info "Unzipping #{source} to #{destination}"
 
-      system("unzip -o #{source} -d tmp")
+      system("unzip -o #{source} -d storage")
 
       Rails.logger.info "Unzipped #{source} to #{destination}"
     end

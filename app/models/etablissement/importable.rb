@@ -37,7 +37,7 @@ module Etablissement::Importable
     def self.unzip_stock(source: Etablissement::Importable::ZIP_DESTINATION, destination: Etablissement::Importable::CSV_DESTINATION)
       Rails.logger.info "Unzipping #{source} to #{destination}"
 
-      system("unzip -o #{source} -d tmp")
+      system("unzip -o #{source} -d storage")
 
       Rails.logger.info "Unzipped #{source} to #{destination}"
     end
