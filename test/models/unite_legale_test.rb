@@ -37,13 +37,15 @@
 #  societeMissionUniteLegale                 :string
 #  statutDiffusionUniteLegale                :string
 #  trancheEffectifsUniteLegale               :string
+#  tsvector_nom_tsearch                      :tsvector
 #  unitePurgeeUniteLegale                    :string
 #  created_at                                :datetime         not null
 #  updated_at                                :datetime         not null
 #
 # Indexes
 #
-#  index_unite_legales_on_siren  (siren) UNIQUE
+#  index_unite_legales_on_siren                 (siren) UNIQUE
+#  index_unite_legales_on_tsvector_nom_tsearch  (tsvector_nom_tsearch) USING gin
 #
 require "test_helper"
 

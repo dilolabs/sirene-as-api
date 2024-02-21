@@ -5,7 +5,24 @@ module Api
 
       def show
         @etablissement = Etablissement.find_by(siret: params[:siret])
-        render json: @etablissement
+        render json: @etablissement.as_json(
+          include: [
+            unite_legale: {
+              except: [
+                :created_at,
+                :id,
+                :tsvector_nom_tsearch,
+                :updated_at
+              ]
+            }
+          ],
+          except: [
+            :created_at,
+            :id,
+            :unite_legale_id,
+            :updated_at,
+          ]
+        )
       end
 
       private

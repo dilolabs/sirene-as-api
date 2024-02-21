@@ -37,13 +37,15 @@
 #  societeMissionUniteLegale                 :string
 #  statutDiffusionUniteLegale                :string
 #  trancheEffectifsUniteLegale               :string
+#  tsvector_nom_tsearch                      :tsvector
 #  unitePurgeeUniteLegale                    :string
 #  created_at                                :datetime         not null
 #  updated_at                                :datetime         not null
 #
 # Indexes
 #
-#  index_unite_legales_on_siren  (siren) UNIQUE
+#  index_unite_legales_on_siren                 (siren) UNIQUE
+#  index_unite_legales_on_tsvector_nom_tsearch  (tsvector_nom_tsearch) USING gin
 #
 class UniteLegale < ApplicationRecord
   include Importable
@@ -51,15 +53,16 @@ class UniteLegale < ApplicationRecord
 
   has_many :etablissements
 
-  pg_search_scope :search_by_denomination, against: [:denominationUniteLegale, :nomUniteLegale, :prenom1UniteLegale, :prenom2UniteLegale, :prenom3UniteLegale, :prenom4UniteLegale, :prenomUsuelUniteLegale, :pseudonymeUniteLegale, :sigleUniteLegale], using: { tsearch: { prefix: true } }
-
-  multisearchable against: [:denominationUniteLegale, :nomUniteLegale, :prenom1UniteLegale, :prenom2UniteLegale, :prenom3UniteLegale, :prenom4UniteLegale, :prenomUsuelUniteLegale, :pseudonymeUniteLegale, :sigleUniteLegale]
-
-  scope :full_text_search, ->(query) {
-    joins(:pg_search_document).merge(
-      PgSearch.multisearch(query).where(searchable_type: klass.to_s)
-    )
-  }
+  pg_search_scope :search,
+    against: [:denominationUniteLegale, :nomUniteLegale],
+    using: {
+      tsearch: {
+        dictionary: "french",
+        prefix: true,
+        tsvector_column: "tsvector_nom_tsearch"
+      }
+    },
+    ranked_by: ":trigram"
 
   validates :siren, presence: true, uniqueness: true
 end

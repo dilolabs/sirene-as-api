@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_110345) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_21_094633) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "etablissements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -211,7 +212,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_110345) do
     t.string "unitePurgeeUniteLegale"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.tsvector "tsvector_nom_tsearch"
     t.index ["siren"], name: "index_unite_legales_on_siren", unique: true
+    t.index ["tsvector_nom_tsearch"], name: "index_unite_legales_on_tsvector_nom_tsearch", using: :gin
   end
 
   add_foreign_key "etablissements", "unite_legales"

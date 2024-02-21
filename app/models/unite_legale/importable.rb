@@ -13,7 +13,6 @@ module UniteLegale::Importable
       download_stock
       unzip_stock
       insert_csv
-      rebuild_search
     end
 
     def self.download_stock(source: UniteLegale::Importable::ZIP_SOURCE, destination: UniteLegale::Importable::ZIP_DESTINATION)
@@ -62,14 +61,6 @@ module UniteLegale::Importable
       end
 
       Rails.logger.info "Imported #{source}"
-    end
-
-    def self.rebuild_search
-      Rails.logger.info "Rebuilding search"
-
-      PgSearch::Multisearch.rebuild(UniteLegale)
-
-      Rails.logger.info "Rebuilt search"
     end
   end
 end
