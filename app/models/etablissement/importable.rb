@@ -70,7 +70,7 @@ module Etablissement::Importable
 
       if etablissements_to_update.any?
         etablissements_to_update.in_groups_of(1000, false) do |group|
-          Etablissement.upsert_all(etablissements_to_update, unique_by: :id)
+          Etablissement.upsert_all(group, unique_by: :id)
         end
       end
 
