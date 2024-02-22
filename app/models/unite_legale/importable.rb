@@ -43,8 +43,10 @@ module UniteLegale::Importable
     end
 
     def self.insert_csv(source: UniteLegale::Importable::CSV_DESTINATION)
-      Rails.logger.info "Importing #{source}"
+      Rails.logger.info "Disabling triggers"
+      ActiveRecord::Base.connection.execute("ALTER TABLE unite_legales DISABLE TRIGGER unite_legales_tsvector_nom_tsearch_update;")
 
+      Rails.logger.info "Importing #{source}"
       if UniteLegale.any?
         CSV.foreach(source, headers: true, col_sep: ",") do |row|
           unite_legale = UniteLegale.find_by(siren: row["siren"])
@@ -59,8 +61,19 @@ module UniteLegale::Importable
           UniteLegale.insert_all!(rows.map(&:to_h))
         end
       end
-
       Rails.logger.info "Imported #{source}"
+
+      Rails.logger.info "Enabling triggers"
+      ActiveRecord::Base.connection.execute("ALTER TABLE unite_legales ENABLE TRIGGER unite_legales_tsvector_nom_tsearch_update;")
+
+      Rails.logger.info "Updating tsvector"
+      ActiveRecord::Base.connection.execute <<-SQL
+        UPDATE unite_legales SET tsvector_nom_tsearch = (
+          setweight(to_tsvector('pg_catalog.french', coalesce("denominationUniteLegale", '')), 'A') ||
+          setweight(to_tsvector('pg_catalog.french', coalesce("nomUniteLegale", '')), 'B')
+        );
+      SQL
+      Rails.logger.info "Updated tsvector"
     end
   end
 end
