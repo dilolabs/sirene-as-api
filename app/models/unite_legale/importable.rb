@@ -47,19 +47,8 @@ module UniteLegale::Importable
       ActiveRecord::Base.connection.execute("ALTER TABLE unite_legales DISABLE TRIGGER unite_legales_tsvector_nom_tsearch_update;")
 
       Rails.logger.info "Importing #{source}"
-      if UniteLegale.any?
-        CSV.foreach(source, headers: true, col_sep: ",") do |row|
-          unite_legale = UniteLegale.find_by(siren: row["siren"])
-          if unite_legale
-            unite_legale.update!(row.to_h)
-          else
-            UniteLegale.create!(row.to_h)
-          end
-        end
-      else
-        CSV.open(source, headers: true, col_sep: ",").each_slice(1000) do |rows|
-          UniteLegale.insert_all!(rows.map(&:to_h))
-        end
+      CSV.open(source, headers: true, col_sep: ",").each_slice(1000) do |rows|
+        UniteLegale.upsert_all(rows.map(&:to_h), unique_by: :siren)
       end
       Rails.logger.info "Imported #{source}"
 

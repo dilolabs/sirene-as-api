@@ -45,14 +45,32 @@ module Etablissement::Importable
     def self.insert_csv(source: Etablissement::Importable::CSV_DESTINATION)
       Rails.logger.info "Importing #{source}"
 
+      etablissements_to_create = []
+      etablissements_to_update = []
+
       CSV.foreach(source, headers: true, col_sep: ",") do |row|
-        etablissement = Etablissement.find_by(siret: row["siret"])
-        if etablissement
-          etablissement.update!(row.to_h)
+        row_hash = row.to_h
+
+        existing_etablissement = Etablissement.find_by(siret: row_hash["siret"])
+        if existing_etablissement
+          etablissements_to_update << row_hash.merge(id: existing_etablissement.id)
         else
-          unite_legale = Etablissement.find_by(siren: row["siren"])
+          unite_legale = UniteLegale.find_by(siren: row_hash["siren"])
           next unless unite_legale
-          unite_legale.etablissements.create!(row.to_h)
+
+          etablissements_to_create << row_hash.merge(unite_legale_id: unite_legale.id)
+        end
+      end
+
+      if etablissements_to_create.any?
+        etablissements_to_create.in_groups_of(1000, false) do |group|
+          Etablissement.create!(group)
+        end
+      end
+
+      if etablissements_to_update.any?
+        etablissements_to_update.in_groups_of(1000, false) do |group|
+          Etablissement.upsert_all(etablissements_to_update, unique_by: :id)
         end
       end
 
