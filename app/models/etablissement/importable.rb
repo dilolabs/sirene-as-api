@@ -45,32 +45,33 @@ module Etablissement::Importable
     def self.insert_csv(source: Etablissement::Importable::CSV_DESTINATION)
       Rails.logger.info "Importing #{source}"
 
-      etablissements_to_create = []
-      etablissements_to_update = []
+      CSV.open(source, headers: true, col_sep: ",").each_slice(10000) do |rows|
+        etablissements_to_create = []
+        etablissements_to_update = []
 
-      CSV.foreach(source, headers: true, col_sep: ",") do |row|
-        row_hash = row.to_h
+        rows.each do |row|
+          row_hash = row.to_h
 
-        existing_etablissement = Etablissement.find_by(siret: row_hash["siret"])
-        if existing_etablissement
-          etablissements_to_update << row_hash.merge(id: existing_etablissement.id)
-        else
-          unite_legale = UniteLegale.find_by(siren: row_hash["siren"])
-          next unless unite_legale
-
-          etablissements_to_create << row_hash.merge(unite_legale_id: unite_legale.id)
+          existing_etablissement = Etablissement.find_by(siret: row_hash["siret"])
+          if existing_etablissement
+            etablissements_to_update << row_hash.merge(id: existing_etablissement.id, unite_legale_id: existing_etablissement.unite_legale_id)
+          else
+            unite_legale = UniteLegale.find_by(siren: row_hash["siren"])
+            next unless unite_legale
+            etablissements_to_create << row_hash.merge(unite_legale_id: unite_legale.id)
+          end
         end
-      end
 
-      if etablissements_to_create.any?
-        etablissements_to_create.in_groups_of(1000, false) do |group|
-          Etablissement.create!(group)
+        if etablissements_to_create.any?
+          etablissements_to_create.in_groups_of(1000, false) do |group|
+            Etablissement.insert_all(group)
+          end
         end
-      end
 
-      if etablissements_to_update.any?
-        etablissements_to_update.in_groups_of(1000, false) do |group|
-          Etablissement.upsert_all(group, unique_by: :id)
+        if etablissements_to_update.any?
+          etablissements_to_update.in_groups_of(1000, false) do |group|
+            Etablissement.upsert_all(group, unique_by: :id)
+          end
         end
       end
 
