@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.0"
+ruby "3.3.5"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.1"
@@ -46,6 +46,7 @@ group :development do
 
   # Sirene as API development dependencies
   gem "annotate"
+  gem "bundler-audit"
 end
 
 # Sirene as API dependencies
