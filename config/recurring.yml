@@ -1,0 +1,4 @@
+production:
+  monthly_import_stock:
+    class: ImportStockJob
+    schedule: every month
