@@ -10,11 +10,13 @@ Vous pouvez essayer l'API en utilisant une instance hébergée chez OVHcloud :
 
     curl 'https://sirene.searchd.fr/api/v1/unites_legales/?q=Doctolib'
 
+Si celle-ci ne répond pas, merci de bien vouloir nous écrire par mail à equipe+sirene-as-api@dilolabs.fr
+
 ## Installation en environnement de développement
 
 Pré-requis :
 
-- Ruby 3.3.0
+- Ruby 3.3
 - PostgreSQL
 
 Cloner le dépôt :
@@ -33,7 +35,7 @@ Peupler la base de données avec les données de SIRENE :
 
 ⚠️  Cela peut prendre un certain temps.
 
-    bundle exec rake sirene:import_stock
+    bin/rails sirene:import_stock
 
 Lancer le serveur :
 
@@ -46,6 +48,12 @@ Requêter l'API avec le nom d'une entreprise :
 Requêter l'API avec le SIREN d'une entreprise :
 
     curl 'localhost:3000/api/v1/unites_legales/794598813'
+
+## Déploiement en production
+
+En production, le job d'import des données de SIRENE est automatiquement exécuté tous les mois.
+
+Si vous souhaitez déployer Sirene as API en production et avez besoin d'assistance, merci de bien vouloir nous écrire par mail à equipe+sirene-as-api@dilolabs.fr
 
 ## Licence
 
