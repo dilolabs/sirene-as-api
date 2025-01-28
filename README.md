@@ -4,6 +4,10 @@
 
 API REST pour accéder aux données de SIRENE (Système Informatique pour le Répertoire des ENtreprises et des Établissements).
 
+L'application est développée en Ruby on Rails sous licence MIT. Elle permet le téléchargement et l'indexation de la base des unités légales et établissements de la base SIRENE tous les mois de façon automatisée.
+
+La réutilisation permet de tester l'API pour accéder aux données de SIRENE, d'en demander un accès et de l'héberger sur sa propre infrastructure. Elle a été développée suite à la dépréciation de l'[API pour le fichier SIRENE d'Etalab](https://github.com/etalab/sirene_as_api).
+
 ## Essayer l'API
 
 Vous pouvez essayer l'API en utilisant une instance hébergée chez OVHcloud :
@@ -57,5 +61,5 @@ Si vous souhaitez déployer Sirene as API en production et avez besoin d'assista
 
 ## Licence
 
-Fair Source 10 (voir [LICENSE.md](LICENSE.md)).
+MIT (voir [LICENSE](LICENSE)).
 
