@@ -50,6 +50,7 @@ group :development do
 end
 
 # Sirene as API dependencies
+gem "csv"
 gem "pg_search"
 gem "rubyzip"
 gem "solid_queue"
