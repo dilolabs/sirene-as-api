@@ -51,4 +51,5 @@ end
 
 # Sirene as API dependencies
 gem "pg_search"
+gem "rubyzip"
 gem "solid_queue"

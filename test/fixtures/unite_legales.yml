@@ -21,10 +21,10 @@
 #  etatAdministratifUniteLegale              :string
 #  identifiantAssociationUniteLegale         :string
 #  nicSiegeUniteLegale                       :string
-#  nomUniteLegale                            :string
-#  nomUsageUniteLegale                       :string
 #  nombrePeriodesUniteLegale                 :integer
 #  nomenclatureActivitePrincipaleUniteLegale :string
+#  nomUniteLegale                            :string
+#  nomUsageUniteLegale                       :string
 #  prenom1UniteLegale                        :string
 #  prenom2UniteLegale                        :string
 #  prenom3UniteLegale                        :string
@@ -37,15 +37,15 @@
 #  societeMissionUniteLegale                 :string
 #  statutDiffusionUniteLegale                :string
 #  trancheEffectifsUniteLegale               :string
-#  tsvector_nom_tsearch                      :tsvector
 #  unitePurgeeUniteLegale                    :string
 #  created_at                                :datetime         not null
 #  updated_at                                :datetime         not null
+#  tsvector_nom_tsearch                      :tsvector
 #
 # Indexes
 #
 #  index_unite_legales_on_siren                 (siren) UNIQUE
-#  index_unite_legales_on_tsvector_nom_tsearch  (tsvector_nom_tsearch) USING gin
+#  index_unite_legales_on_tsvector_nom_tsearch  (tsvector_nom_tsearch)
 #
 
 one:

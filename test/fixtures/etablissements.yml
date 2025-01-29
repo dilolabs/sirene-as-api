@@ -3,6 +3,7 @@
 # Table name: etablissements
 #
 #  id                                             :uuid             not null, primary key
+#  unite_legale_id                                :uuid             not null
 #  activitePrincipaleEtablissement                :string
 #  activitePrincipaleRegistreMetiersEtablissement :string
 #  anneeEffectifsEtablissement                    :integer
@@ -53,16 +54,16 @@
 #  typeVoieEtablissement                          :string
 #  created_at                                     :datetime         not null
 #  updated_at                                     :datetime         not null
-#  unite_legale_id                                :uuid             not null
+#  dernierNumeroVoieEtablissement                 :string
+#  indiceRepetitionDernierNumeroVoieEtablissement :string
+#  identifiantAdresseEtablissement                :string
+#  coordonneeLambertAbscisseEtablissement         :string
+#  coordonneeLambertOrdonneeEtablissement         :string
 #
 # Indexes
 #
 #  index_etablissements_on_siret            (siret) UNIQUE
 #  index_etablissements_on_unite_legale_id  (unite_legale_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (unite_legale_id => unite_legales.id)
 #
 
 one:
